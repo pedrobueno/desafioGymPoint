@@ -1,10 +1,10 @@
 import * as Yup from 'yup';
-import Student from '../models/Students';
+import Student from '../models/Student';
 
 class StudentController {
   async index(req, res) {
     const list = await Student.findAll({
-      attributes: ['name', 'email', 'age', 'weight', 'height'],
+      attributes: ['id', 'name', 'email', 'age', 'weight', 'height'],
     });
 
     return res.json(list);
@@ -44,9 +44,11 @@ class StudentController {
         .json({ error: 'There is already a student with this email' });
     }
 
-    const { name, email, age, weight, height } = await Student.create(req.body);
+    const { id, name, email, age, weight, height } = await Student.create(
+      req.body
+    );
 
-    return res.json({ name, email, age, weight, height });
+    return res.json({ id, name, email, age, weight, height });
   }
 
   async update(req, res) {
